@@ -1,0 +1,8 @@
+philo
+.vscode
+obj
+*.o
+*.swo
+*.swp
+a.out
+prog
