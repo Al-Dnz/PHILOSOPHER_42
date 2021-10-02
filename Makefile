@@ -1,5 +1,8 @@
 NAME = philo
-SRC = main.c \
+SRC =	main.c \
+		philo_generator.c \
+		lib_util_1.c \
+		lib_util_2.c \
 
 INC = inc
 OBJ_DIR = obj
