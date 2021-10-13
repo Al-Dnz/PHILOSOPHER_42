@@ -7,5 +7,5 @@ make
 ````
 
 ```
- ./philo [n_of_philosophers][time_to_die][time_to_eat][time_to_sleep][time_they_must_eat]
+ ./philo [number_of_philosophers][time_before_die_without_eating][time_of_a_meal][time_of_a_sleep][max_number_of_meal]
 ```

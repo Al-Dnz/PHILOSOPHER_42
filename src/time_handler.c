@@ -1,6 +1,6 @@
 #include "philosophers.h"
 
-void	display_timestamp(t_philo *philo)
+void	display_timestamp(t_philo philo)
 {
 	int				time_bis;
 	int				time;
@@ -9,7 +9,7 @@ void	display_timestamp(t_philo *philo)
 	struct timeval	now;
 
 	gettimeofday(&now, NULL);
-	time_bis = now.tv_sec - philo->init_time;
+	time_bis = now.tv_sec - philo.init_time;
 	dimension = 0;
 	time = time_bis;
 	while (time_bis > 0)

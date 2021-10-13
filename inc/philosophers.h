@@ -10,6 +10,9 @@
 
 typedef struct	s_data
 {
+	pthread_mutex_t message_locker;
+	pthread_mutex_t meal_checker;
+	pthread_mutex_t end_of_simulation;
 	int n_philo;
 	int	t_to_die;
 	int	t_to_eat;
@@ -19,10 +22,18 @@ typedef struct	s_data
 
 typedef struct s_philo
 {
+	pthread_mutex_t fork;
+	pthread_mutex_t *prev_fork;
+	pthread_mutex_t *message_locker;
+	pthread_mutex_t *meal_checker;
+	pthread_mutex_t *end_of_simulation;
+	int	n_philo;
 	int init_time;
 	int	t_die;
 	int	t_eat;
 	int	t_sleep;
+	int	meal_limit;
+	int	meal_count;
 	int	id;
 }				t_philo;
 
@@ -32,7 +43,6 @@ typedef struct s_philo
 //philo_generator.c
 void		*routine_1(void *arg);
 void		*routine_2(void *arg);
-pthread_t	philo_generator(void *(routine)(void *arg));
 
 //lib_util_1.c
 void		ft_putstr_fd(char *str, int fd);
@@ -44,6 +54,6 @@ int			ft_isdigit(int c);
 void		ft_putnbr_fd(int n, int fd);
 
 //time_handler.c
-void	display_timestamp(t_philo *philo);
+void	display_timestamp(t_philo philo);
 
 #endif
