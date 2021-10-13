@@ -14,9 +14,9 @@ typedef struct	s_data
 	pthread_mutex_t meal_checker;
 	pthread_mutex_t end_of_simulation;
 	int n_philo;
-	int	t_to_die;
-	int	t_to_eat;
-	int	t_to_sleep;
+	int	t_before_die;
+	int	t_of_meal;
+	int	t_of_sleep;
 	int	meal_limit;
 }				t_data;
 
@@ -28,12 +28,13 @@ typedef struct s_philo
 	pthread_mutex_t *meal_checker;
 	pthread_mutex_t *end_of_simulation;
 	int	n_philo;
-	int init_time;
+	long long init_time;
 	int	t_die;
 	int	t_eat;
 	int	t_sleep;
 	int	meal_limit;
 	int	meal_count;
+	long long last_meal;
 	int	id;
 }				t_philo;
 
@@ -51,9 +52,10 @@ void		ft_exit(char *message, int error, int fd);
 //lib_util_2.c
 long		ft_atoi(const char *str);
 int			ft_isdigit(int c);
-void		ft_putnbr_fd(int n, int fd);
+void		ft_putnbr_fd(long long n, int fd);
 
 //time_handler.c
 void	display_timestamp(t_philo philo);
+long long	get_time_now(void);
 
 #endif

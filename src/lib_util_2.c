@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 21:06:44 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/02 21:06:55 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/13 22:39:22 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ long	ft_atoi(const char *str)
 	return (res * sign);
 }
 
-void	ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(long long n, int fd)
 {
 	char	c;
 

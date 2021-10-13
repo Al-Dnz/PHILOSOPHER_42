@@ -22,3 +22,13 @@ void	display_timestamp(t_philo philo)
 	 	write(1, "0", 1);
 	ft_putnbr_fd(time, 1);
 }
+
+long long	get_time_now(void)
+{
+	struct timeval  time;
+ 
+	gettimeofday(&time, NULL);
+	//return (time.tv_sec);// * 1000 + time.tv_usec / 1000);	
+	//return (time.tv_sec);
+	 return (time.tv_sec * 1000000 + time.tv_usec);
+}
