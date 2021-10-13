@@ -6,15 +6,28 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <pthread.h>
+# include <sys/time.h>
 
-typedef struct	s_philo_data
+typedef struct	s_data
 {
 	int n_philo;
 	int	t_to_die;
 	int	t_to_eat;
 	int	t_to_sleep;
-	int	t_must_eat;
-}				t_philo_data;
+	int	meal_limit;
+}				t_data;
+
+typedef struct s_philo
+{
+	int init_time;
+	int	t_die;
+	int	t_eat;
+	int	t_sleep;
+	int	id;
+}				t_philo;
+
+
+#define DELAY 1000000
 
 //philo_generator.c
 void		*routine_1(void *arg);
@@ -29,5 +42,8 @@ void		ft_exit(char *message, int error, int fd);
 long		ft_atoi(const char *str);
 int			ft_isdigit(int c);
 void		ft_putnbr_fd(int n, int fd);
+
+//time_handler.c
+void	display_timestamp(t_philo *philo);
 
 #endif

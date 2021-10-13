@@ -6,22 +6,24 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 21:06:36 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/02 21:06:38 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/11 15:07:45 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#define DELAY 1000000
 
 void	*routine_1(void *arg)
 {
-	(void)arg;
+	//(void)arg;
+	t_philo *philo;
+	philo = (t_philo*)arg;
 	while (1)
 	{
 		usleep(DELAY);
-		ft_putstr_fd("XXXXXXXXX\n", 1);
+		display_timestamp(philo);
+		ft_putstr_fd("\n", 1);
 	}	
-	pthread_exit(NULL);
+	//pthread_exit(NULL);
 }
 
 void	*routine_2(void *arg)
@@ -30,9 +32,9 @@ void	*routine_2(void *arg)
 	while (1)
 	{
 		usleep(DELAY);
-		ft_putstr_fd("OOOOOOOO\n", 1);
+		//ft_putstr_fd("OOOOOOOO\n", 1);
 	}
-	pthread_exit(NULL);
+	//pthread_exit(NULL);
 }
 
 pthread_t	philo_generator(void *routine(void *arg))
