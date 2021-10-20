@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:58:44 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/20 12:58:46 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/20 14:46:00 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_data
 
 typedef struct s_philo
 {
+	pthread_t		death_thread;
 	pthread_mutex_t	fork;
 	pthread_mutex_t	*prev_fork;
 	pthread_mutex_t	*message_locker;

@@ -17,7 +17,7 @@ all:
 	@$(MAKE) -s $(NAME)
 
 $(NAME): $(OBJ)
-	${CC} $(CFLAGS) $(OBJ) -I $(INC) -o $(NAME)
+	${CC} $(CFLAGS) $(OBJ) -I $(INC) -o $(NAME) -lpthread
 	@echo "\033[0;32m------------------------------\033[0m"
 	@echo "\033[0;32m| => $(NAME) well created ! <= |\033[0m"
 	@echo "\033[0;32m------------------------------\033[0m"
