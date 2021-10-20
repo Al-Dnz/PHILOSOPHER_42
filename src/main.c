@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 21:06:58 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/20 13:49:54 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/20 22:33:20 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	philosophers(t_data *data, t_philo *philo, pthread_t *thread_arr)
 	while (++i < data->n_philo)
 	{
 		pthread_detach(thread_arr[i]);
+		pthread_detach(philo[i].death_thread);
 		pthread_mutex_destroy(&philo[i].fork);
 	}
 	pthread_mutex_destroy(&data->message_locker);
