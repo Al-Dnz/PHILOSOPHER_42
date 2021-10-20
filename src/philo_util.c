@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:11:24 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/20 13:21:10 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/21 01:12:39 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@ void	*mower_check(void *arg)
 	philo = (t_philo *)arg;
 	while (1)
 	{
-		if ((philo->last_meal != 0
-				&& ((get_time_now() - philo->last_meal) > philo->t_die))
-			|| (get_time_now() - philo->init_time > philo->t_die
-				&& philo->n_philo == 1))
+		if ((philo->last_meal != -1
+				&& (get_time_now() - philo->last_meal) > philo->t_die)
+			|| (philo->n_philo == 1
+				&& get_time_now() - philo->init_time > philo->t_die))
 		{
 			log_line(philo, "has died");
 			philo->alive = false;
+			pthread_mutex_lock(philo->message_locker);
 			pthread_mutex_unlock(philo->end_of_simulation);
 			return (NULL);
 		}
@@ -59,7 +60,7 @@ void	*meal_check(void *arg)
 	i = 0;
 	philo = (t_philo *)arg;
 	n = philo[0].n_philo;
-	while (i < n && philo[0].meal_limit > 0)
+	while (i <= n && philo[0].meal_limit > 0)
 	{
 		pthread_mutex_lock(philo[0].meal_checker);
 		i++;
@@ -77,11 +78,6 @@ void	set_philo(t_philo *philo, t_data *data, long long init_time, int i)
 	philo->message_locker = &data->message_locker;
 	philo->meal_checker = &data->meal_checker;
 	philo->end_of_simulation = &data->end_of_simulation;
-	pthread_mutex_init(&philo->fork, NULL);
-	if (i > 0)
-		philo->prev_fork = &philo[i - 1].fork;
-	else
-		philo->prev_fork = NULL;
 	philo->n_philo = data->n_philo;
 	philo->id = i + 1;
 	philo->t_die = data->t_before_die;
@@ -90,7 +86,7 @@ void	set_philo(t_philo *philo, t_data *data, long long init_time, int i)
 	philo->meal_limit = data->meal_limit;
 	philo->meal_count = 0;
 	philo->init_time = init_time;
-	philo->last_meal = 0;
+	philo->last_meal = -1;
 	philo->alive = true;
 }
 
@@ -102,7 +98,14 @@ void	philo_array_generator(t_data *data, t_philo *philo)
 	init_time = get_time_now();
 	i = -1;
 	while (++i < data->n_philo)
+	{
+		pthread_mutex_init(&philo[i].fork, NULL);
+		if (i > 0)
+			philo[i].prev_fork = &philo[i - 1].fork;
+		else
+			philo[i].prev_fork = NULL;
 		set_philo(&philo[i], data, init_time, i);
+	}
 	if (data->n_philo > 1)
 		philo[0].prev_fork = &philo[data->n_philo - 1].fork;
 }
