@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lib_util_2.c                                       :+:      :+:    :+:   */
+/*   lib_util.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 21:06:44 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/13 22:39:22 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/20 12:26:07 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,19 @@ void	ft_putnbr_fd(long long n, int fd)
 		ft_putnbr_fd(n / 10, fd);
 	c = n % 10 + '0';
 	write(fd, &c, 1);
+}
+
+void	ft_putstr_fd(char *str, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		write (fd, &str[i++], 1);
+}
+
+void	ft_exit(char *message, int error, int fd)
+{
+	ft_putstr_fd(message, fd);
+	exit(error);
 }

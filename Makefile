@@ -1,9 +1,9 @@
 NAME = philo
 SRC =	main.c \
-		philo_generator.c \
+		philo_util.c \
+		philo_routine.c \
 		time_handler.c \
-		lib_util_1.c \
-		lib_util_2.c \
+		lib_util.c \
 
 INC = inc
 OBJ_DIR = obj
