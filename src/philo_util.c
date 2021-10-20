@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:11:24 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/20 12:49:11 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/20 13:21:10 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	*meal_check(void *arg)
 	}
 	pthread_mutex_lock(philo[0].message_locker);
 	display_timestamp(philo[0].init_time);
-	ft_putstr_fd(" All meals have been taken", 1);
+	ft_putstr_fd(" All meals have been taken\n", 1);
 	pthread_mutex_unlock(philo[0].message_locker);
 	pthread_mutex_unlock(philo[0].end_of_simulation);
 	return (NULL);
