@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:58:44 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/20 14:46:00 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/22 23:25:14 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_data
 	int				t_of_meal;
 	int				t_of_sleep;
 	int				meal_limit;
+	int				death_signal;
+	int				meal_signal;
 }				t_data;
 
 typedef struct s_philo
@@ -40,6 +42,9 @@ typedef struct s_philo
 	pthread_mutex_t	*message_locker;
 	pthread_mutex_t	*meal_checker;
 	pthread_mutex_t	*end_of_simulation;
+	int			*death_signal;
+	int			*meal_signal;
+	
 	int				n_philo;
 	long long		init_time;
 	int				t_die;
@@ -48,8 +53,9 @@ typedef struct s_philo
 	int				meal_limit;
 	int				meal_count;
 	long long		last_meal;
-	bool			alive;
 	int				id;
+	bool			satiated;
+	bool			is_eating;
 }				t_philo;
 
 # define DELAY 1000000

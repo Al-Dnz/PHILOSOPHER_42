@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:23:16 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/21 00:56:20 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/22 23:15:39 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	zero_norm(long long n, int limit)
 		dimension++;
 		n_bis /= 10;
 	}
+	if (dimension > limit)
+		return ;
 	if (n == 0)
 		dimension = 1;
 	while (limit-- - dimension)

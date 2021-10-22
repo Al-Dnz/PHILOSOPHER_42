@@ -6,28 +6,52 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 21:06:58 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/21 00:48:59 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/22 23:45:00 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+void	*checker(void *arg)
+{
+	t_data *data;
+
+	data = (t_data *)arg;
+	while (data->meal_signal == 0 && data->death_signal == 0)
+		continue;
+	pthread_mutex_unlock(&data->end_of_simulation);
+	return (NULL);
+}
+
 void	philosophers(t_data *data, t_philo *philo, pthread_t *thread_arr)
 {
 	int			i;
-	pthread_t	meal_thread;
+	pthread_t	meal_thread = NULL;
+	pthread_t	main_checker = NULL;
 
 	philo_array_generator(data, philo);
-	i = -1;
+	pthread_create(&main_checker, NULL, checker, data);
+	
 	if (data->meal_limit > -1 && data->n_philo > 1)
 		pthread_create(&meal_thread, NULL, meal_check, philo);
+	i = -1;
 	while (++i < data->n_philo)
+	{
 		pthread_create(&thread_arr[i], NULL, philo_routine, &(philo[i]));
+		pthread_create(&philo[i].death_thread, NULL, mower_check, &philo[i]);
+		pthread_join(thread_arr[i], NULL);
+		pthread_join(philo[i].death_thread, NULL);
+	}
+
+	pthread_join(main_checker, NULL);
+	if (data->meal_limit > -1 && data->n_philo > 1)
+		pthread_join(meal_thread, NULL);
 	pthread_mutex_lock(&data->end_of_simulation);
 	usleep(END_DELAY);
 	i = -1;
 	if (data->meal_limit > -1 && data->n_philo > 1)
 		pthread_detach(meal_thread);
+	pthread_detach(main_checker);
 	while (++i < data->n_philo)
 	{
 		pthread_detach(thread_arr[i]);
@@ -53,6 +77,8 @@ void	store_data(int argc, char **argv, t_data *data)
 		data->meal_limit = ft_atoi(argv[5]);
 	else
 		data->meal_limit = -1;
+	data->death_signal = 0;
+	data->meal_signal = 0;
 }	
 
 int	dipslay_usage(char *message, int fd)
