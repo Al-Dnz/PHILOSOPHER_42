@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:11:24 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/22 23:47:01 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/23 00:11:08 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	*mower_check(void *arg)
 		}
 	}
 	//pthread_mutex_lock(philo->message_locker);
-	pthread_mutex_unlock(philo->prev_fork);
+	if (philo->n_philo > 1)
+		pthread_mutex_unlock(philo->prev_fork);
 	pthread_mutex_unlock(&philo->fork);
 	return (NULL);
 }
@@ -90,7 +91,7 @@ void	*meal_check(void *arg)
 	i = 0;
 	philo = (t_philo *)arg;
 	n = philo[0].n_philo;
-	if (*philo[0].death_signal == 1)
+	if (*philo[0].death_signal == 1 || n == 1)
 			return (NULL);
 	while (i <= n && philo[0].meal_limit > 0)
 	{

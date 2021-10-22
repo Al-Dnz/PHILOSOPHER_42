@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:33:31 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/22 23:46:05 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/23 00:13:17 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	*philo_routine(void *arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->n_philo == 1)
+		return (NULL);
 	if (philo->id % 2 == 0)
 		usleep(philo->t_eat * 1000);
 	routine_process(philo);
