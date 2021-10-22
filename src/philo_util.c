@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:11:24 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/23 00:11:08 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/23 00:47:53 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,51 +31,24 @@ void	log_line(t_philo *philo, char *message)
 	pthread_mutex_unlock(philo->message_locker);
 }
 
-void	*mower_check_init(void *arg)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
-	while (*philo->death_signal == 0 && *philo->meal_signal == 0 && philo->meal_count > 0 && philo->satiated == false)
-	{
-		if ((philo->last_meal != -1
-				&& (get_time_now() - philo->last_meal) > philo->t_die)
-			|| (philo->n_philo == 1
-				&& get_time_now() - philo->init_time > philo->t_die))
-		{
-			log_line(philo, "has died");
-			*philo->death_signal = 1;
-			//pthread_mutex_lock(philo->message_locker);
-			// printf("DS=> [%d]\n", *philo->death_signal);
-			// printf("MS=> [%d]\n", *philo->meal_signal);
-			//pthread_mutex_unlock(philo->end_of_simulation);
-			return (NULL);
-		}
-	}
-	return (NULL);
-}
-
 void	*mower_check(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (*philo->death_signal == 0 && *philo->meal_signal == 0 && philo->satiated == false)
+	while (*philo->death_signal == 0 && *philo->meal_signal == 0
+		&& philo->satiated == false)
 	{
 		if (philo->is_eating == false && ((philo->last_meal != -1
-				&& (get_time_now() - philo->last_meal) > philo->t_die)
-			|| (philo->n_philo == 1
-				&& get_time_now() - philo->init_time > philo->t_die)))
+					&& (get_time_now() - philo->last_meal) > philo->t_die)
+				|| (philo->n_philo == 1
+					&& get_time_now() - philo->init_time > philo->t_die)))
 		{
 			log_line(philo, "has died");
 			*philo->death_signal = 1;
-			// printf("end of mower check for#[%d]\n", philo->id);
-			//pthread_mutex_unlock(philo->end_of_simulation);
-			// return (NULL);
 			break ;
 		}
 	}
-	//pthread_mutex_lock(philo->message_locker);
 	if (philo->n_philo > 1)
 		pthread_mutex_unlock(philo->prev_fork);
 	pthread_mutex_unlock(&philo->fork);
@@ -92,7 +65,7 @@ void	*meal_check(void *arg)
 	philo = (t_philo *)arg;
 	n = philo[0].n_philo;
 	if (*philo[0].death_signal == 1 || n == 1)
-			return (NULL);
+		return (NULL);
 	while (i <= n && philo[0].meal_limit > 0)
 	{
 		if (*philo[0].death_signal == 1)

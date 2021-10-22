@@ -2,6 +2,7 @@ NAME = philo
 SRC =	main.c \
 		philo_util.c \
 		philo_routine.c \
+		thread_util.c \
 		time_handler.c \
 		lib_util.c \
 

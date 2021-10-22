@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:58:44 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/22 23:25:14 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/23 01:38:33 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ typedef struct s_philo
 	pthread_mutex_t	*message_locker;
 	pthread_mutex_t	*meal_checker;
 	pthread_mutex_t	*end_of_simulation;
-	int			*death_signal;
-	int			*meal_signal;
-	
+	int				*death_signal;
+	int				*meal_signal;
 	int				n_philo;
 	long long		init_time;
 	int				t_die;
@@ -77,5 +76,11 @@ void		ft_putnbr_fd(long long n, int fd);
 void		display_timestamp(long long init_time);
 void		zero_norm(long long n, int limit);
 long long	get_time_now(void);
+
+void		*checker(void *arg);
+void		philosophers(t_data *data, t_philo *philo, pthread_t *thread_arr);
+void		thread_detacher(pthread_t *thread_arr, t_data *data,
+				t_philo *philo);
+void		mutex_destroyer(t_data *data, t_philo *philo);
 
 #endif
