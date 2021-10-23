@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:11:24 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/23 00:47:53 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/23 12:39:20 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 void	log_line(t_philo *philo, char *message)
 {
-	if (*philo->death_signal == 1 || *philo->meal_signal == 1)
-		return ;
+	
 	pthread_mutex_lock(philo->message_locker);
+	if (*philo->death_signal == 1 || *philo->meal_signal == 1)
+	{
+		pthread_mutex_unlock(philo->message_locker);
+		return ;
+	}
 	display_timestamp(philo->init_time);
 	write(1, " ", 1);
 	if (philo != NULL)

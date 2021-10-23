@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:23:16 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/22 23:15:39 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/23 12:46:48 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,13 @@ long long	get_time_now(void)
 
 	gettimeofday(&time, NULL);
 	return ((time.tv_sec * 1000) + time.tv_usec / 1000);
+}
+
+void	micro_sleep(long t)
+{
+	long long init_time;
+
+	init_time  = get_time_now();
+	while(get_time_now() < init_time + t)
+		usleep(t) ;
 }

@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:58:44 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/23 11:41:04 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/23 12:46:48 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void		ft_putnbr_fd(long long n, int fd);
 void		display_timestamp(long long init_time);
 void		zero_norm(long long n, int limit);
 long long	get_time_now(void);
+void		micro_sleep(long t);
 
 void		*checker(void *arg);
 void		philosophers(t_data *data, t_philo *philo, pthread_t *thread_arr);

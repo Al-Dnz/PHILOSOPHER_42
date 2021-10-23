@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 01:01:10 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/23 11:41:29 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/23 12:26:33 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,6 @@ void	philosophers(t_data *data, t_philo *philo, pthread_t *thread_arr)
 		pthread_join(meal_thread, NULL);
 	pthread_mutex_lock(&data->end_of_simulation);
 	usleep(END_DELAY);
-	if (data->meal_limit > -1 && data->n_philo > 1)
-		pthread_detach(meal_thread);
-	thread_detacher(thread_arr, data, philo);
 	mutex_destroyer(data, philo);
 }
 
