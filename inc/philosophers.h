@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:58:44 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/23 01:38:33 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/23 11:41:04 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void		*checker(void *arg);
 void		philosophers(t_data *data, t_philo *philo, pthread_t *thread_arr);
 void		thread_detacher(pthread_t *thread_arr, t_data *data,
 				t_philo *philo);
+void		thread_joiner(pthread_t *thread_arr, t_data *data, t_philo *philo);
 void		mutex_destroyer(t_data *data, t_philo *philo);
 
 #endif

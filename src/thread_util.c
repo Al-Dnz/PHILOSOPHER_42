@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 01:01:10 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/23 01:38:51 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/23 11:41:29 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,8 @@ void	philosophers(t_data *data, t_philo *philo, pthread_t *thread_arr)
 	{
 		pthread_create(&thread_arr[i], NULL, philo_routine, &(philo[i]));
 		pthread_create(&philo[i].death_thread, NULL, mower_check, &philo[i]);
-		pthread_join(thread_arr[i], NULL);
-		pthread_join(philo[i].death_thread, NULL);
 	}
+	thread_joiner(thread_arr, data, philo);
 	pthread_join(main_checker, NULL);
 	if (data->meal_limit > -1 && data->n_philo > 1)
 		pthread_join(meal_thread, NULL);
@@ -50,6 +49,18 @@ void	philosophers(t_data *data, t_philo *philo, pthread_t *thread_arr)
 		pthread_detach(meal_thread);
 	thread_detacher(thread_arr, data, philo);
 	mutex_destroyer(data, philo);
+}
+
+void	thread_joiner(pthread_t *thread_arr, t_data *data, t_philo *philo)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data->n_philo)
+	{
+		pthread_join(thread_arr[i], NULL);
+		pthread_join(philo[i].death_thread, NULL);
+	}
 }
 
 void	thread_detacher(pthread_t *thread_arr, t_data *data, t_philo *philo)
