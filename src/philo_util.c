@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:11:24 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/23 13:27:48 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/23 15:14:00 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	log_line(t_philo *philo, char *message)
 	write(1, " ", 1);
 	if (philo != NULL)
 	{
-		write(1, "philosopher#", 12);
+		write(1, "#", 1);
 		zero_norm(philo->id, 3);
 		ft_putnbr_fd(philo->id, 1);
 		write(1, " ", 1);
@@ -46,7 +46,7 @@ void	*mower_check(void *arg)
 		now = get_time_now();
 		if (philo->is_eating == 0 && ((philo->last_meal != -1
 					&& (now - philo->last_meal) > philo->t_die)
-				|| (philo->n_philo == 1
+				|| (philo->last_meal == -1
 					&& now - philo->init_time > philo->t_die)))
 		{
 			log_line(philo, "has died");
