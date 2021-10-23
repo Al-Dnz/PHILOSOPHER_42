@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:33:31 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/23 12:46:48 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/23 12:56:16 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ void	eat_sequence(t_philo *philo)
 	log_line(philo, "is eating");
 	philo->is_eating = true;
 	philo->meal_count++;
-	// usleep(philo->t_eat * 1000);
 	micro_sleep(philo->t_eat);
-
 	philo->last_meal = get_time_now();
 	pthread_mutex_unlock(philo->prev_fork);
 	pthread_mutex_unlock(&philo->fork);
@@ -42,9 +40,7 @@ void	routine_process(t_philo *philo)
 		if (*philo->death_signal)
 			return ;
 		log_line(philo, "is sleeping");
-		// usleep(philo->t_sleep * 1000);
 		micro_sleep(philo->t_sleep);
-
 		if (*philo->death_signal)
 			return ;
 		log_line(philo, "is thinking");
@@ -61,8 +57,6 @@ void	*philo_routine(void *arg)
 		return (NULL);
 	if (philo->id % 2 == 0)
 		micro_sleep(philo->t_eat);
-		// usleep(philo->t_eat * 1000);
-
 	routine_process(philo);
 	pthread_mutex_unlock(philo->meal_checker);
 	return (NULL);
