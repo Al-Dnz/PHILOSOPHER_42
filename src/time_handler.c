@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:23:16 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/23 12:55:37 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/23 13:06:46 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ void	micro_sleep(long t)
 {
 	long long	init_time;
 
+	if (t < 10)
+	{
+		usleep(t * 1000);
+		return ;
+	}
 	init_time = get_time_now();
 	while (get_time_now() < init_time + t)
 		usleep(t);

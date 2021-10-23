@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 21:06:58 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/23 01:01:51 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/23 13:01:51 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	arg_error(int argc, char **argv)
 	i = 0;
 	while (++i < argc)
 	{
-		if ((i < 5 && ft_atoi(argv[i]) < 1) || (i == 5 && ft_atoi(argv[i]) < 0))
+		if (ft_atoi(argv[i]) < 1)
 			return (dipslay_usage
 				("Error\nEvery arg must be an integer higher than zero\n", 2));
 		j = -1;

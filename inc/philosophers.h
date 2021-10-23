@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:58:44 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/23 12:46:48 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/23 13:46:49 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ typedef struct s_philo
 	int				meal_count;
 	long long		last_meal;
 	int				id;
-	bool			satiated;
-	bool			is_eating;
+	int				satiated;
+	int				is_eating;
 }				t_philo;
 
 # define DELAY 1000000

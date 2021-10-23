@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:11:24 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/23 12:55:48 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/23 13:27:48 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,18 @@ void	log_line(t_philo *philo, char *message)
 
 void	*mower_check(void *arg)
 {
-	t_philo	*philo;
+	t_philo		*philo;
+	long long	now;
 
 	philo = (t_philo *)arg;
 	while (*philo->death_signal == 0 && *philo->meal_signal == 0
-		&& philo->satiated == false)
+		&& philo->satiated == 0)
 	{
-		if (philo->is_eating == false && ((philo->last_meal != -1
-					&& (get_time_now() - philo->last_meal) > philo->t_die)
+		now = get_time_now();
+		if (philo->is_eating == 0 && ((philo->last_meal != -1
+					&& (now - philo->last_meal) > philo->t_die)
 				|| (philo->n_philo == 1
-					&& get_time_now() - philo->init_time > philo->t_die)))
+					&& now - philo->init_time > philo->t_die)))
 		{
 			log_line(philo, "has died");
 			*philo->death_signal = 1;
@@ -101,8 +103,8 @@ void	set_philo(t_philo *philo, t_data *data, long long init_time, int i)
 	philo->last_meal = -1;
 	philo->death_signal = &data->death_signal;
 	philo->meal_signal = &data->meal_signal;
-	philo->satiated = false;
-	philo->is_eating = false;
+	philo->satiated = 0;
+	philo->is_eating = 0;
 }
 
 void	philo_array_generator(t_data *data, t_philo *philo)
