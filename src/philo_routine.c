@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:33:31 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/23 15:00:31 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/23 22:06:58 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	eat_sequence(t_philo *philo)
 	log_line(philo, "is eating");
 	micro_sleep(philo->t_eat);
 	philo->meal_count++;
-	philo->is_eating &= 0;
 	pthread_mutex_unlock(philo->prev_fork);
 	pthread_mutex_unlock(&philo->fork);
+	philo->is_eating &= 0;
 }
 
 void	routine_process(t_philo *philo)
@@ -31,11 +31,11 @@ void	routine_process(t_philo *philo)
 			|| philo->meal_count < philo->meal_limit))
 	{
 		pthread_mutex_lock(philo->prev_fork);
-		log_line(philo, "has taken a fork(L)");
+		log_line(philo, "has taken a fork");
 		if (*philo->death_signal)
 			return ;
 		pthread_mutex_lock(&philo->fork);
-		log_line(philo, "has taken a fork(R)");
+		log_line(philo, "has taken a fork");
 		eat_sequence(philo);
 		if (*philo->death_signal)
 			return ;
@@ -56,7 +56,7 @@ void	*philo_routine(void *arg)
 	if (philo->n_philo == 1)
 		return (NULL);
 	if (philo->id % 2 == 0)
-		micro_sleep(philo->t_eat);
+		usleep(philo->t_eat * 1000);
 	routine_process(philo);
 	pthread_mutex_unlock(philo->meal_checker);
 	return (NULL);
