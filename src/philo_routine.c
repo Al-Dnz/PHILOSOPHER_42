@@ -6,7 +6,7 @@
 /*   By: adenhez <adenhez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 12:33:31 by adenhez           #+#    #+#             */
-/*   Updated: 2021/10/23 13:43:17 by adenhez          ###   ########.fr       */
+/*   Updated: 2021/10/23 14:53:34 by adenhez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void	routine_process(t_philo *philo)
 			|| philo->meal_count < philo->meal_limit))
 	{
 		pthread_mutex_lock(philo->prev_fork);
-		log_line(philo, "has taken a L fork");
+		log_line(philo, "has taken a fork(L)");
 		if (*philo->death_signal)
 			return ;
 		pthread_mutex_lock(&philo->fork);
-		log_line(philo, "has taken a R fork");
+		log_line(philo, "has taken a fork(R)");
 		eat_sequence(philo);
 		if (*philo->death_signal)
 			return ;
